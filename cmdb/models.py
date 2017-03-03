@@ -9,9 +9,7 @@ from django.db import models
 
 
 class Asset(models.Model):
-    asset_id = models.IntegerField(primary_key=True, auto_created=True)
     asset_name = models.CharField(max_length=50, verbose_name='资产名称')
-    idc_id = models.IntegerField(verbose_name='idc编号')
     ipaddr = models.GenericIPAddressField('IP地址')
     cabinet_num = models.CharField('机柜编号', max_length=20)
     run_service = models.CharField('运行服务', max_length=50)
@@ -27,48 +25,14 @@ class Asset(models.Model):
     mac = models.CharField('mac地址', max_length=48, null=True)
     ground_date = models.DateTimeField('上架时间')
 
-    class Meta:
-        verbose_name = '资产名称'
-        verbose_name_plural = verbose_name
-
-    def __unicode__(self):
-        return self.asset_name
-
-
-class Idc(models.Model):
-    idc_id = models.AutoField(primary_key=True ,verbose_name='idc编号', auto_created=True)
-    idc_name = models.CharField('idc名称', max_length=20)
-    idc_phone = models.CharField('idc联系人电话', max_length=11)
-    idc_username = models.CharField('idc联系人', max_length=50)
-    idc_addr = models.CharField('idc地址', max_length=50,null=True)
-    comments = models.CharField('备注', null=True, max_length=100)
-    update_date = models.DateTimeField('更新时间', null=True)
-
-    class Meta:
-        verbose_name = 'idc名称'
-        verbose_name_plural = verbose_name
-
-    def __unicode__(self):
-        return self.idc_name
-
 
 class Maintains(models.Model):
-    maintain_id = models.AutoField(primary_key=True, verbose_name='维护编号', auto_created=True)
-    user_id = models.IntegerField('用户编号')
     record = models.CharField('维护记录', max_length=200)
     comments = models.CharField('备注', max_length=100)
     maintain_date = models.DateTimeField('维护时间')
 
-    class Meta:
-        verbose_name = '维护记录'
-        verbose_name_plural = verbose_name
-
-    def __unicode__(self):
-        return self.record
-
 
 class Ribao(models.Model):
-    ribao_id = models.IntegerField('日报编号', primary_key=True, auto_created=True)
     ribao_type = models.CharField('日报类型', max_length=50)
     work_date = models.DateTimeField('工作时间')
     work_content = models.CharField('工作内容', max_length=500)
@@ -76,17 +40,8 @@ class Ribao(models.Model):
     solve = models.CharField('解决方法', max_length=50)
     commit_date = models.DateTimeField('提交时间')
 
-    class Meta:
-        verbose_name = '工作内容'
-        verbose_name_plural = verbose_name
-
-    def __unicode__(self):
-        return self.work_content
-
 
 class Users(models.Model):
-    user_id = models.IntegerField('用户编号', primary_key=True, auto_created=True)
-    role_id = models.IntegerField('角色编号')
     username = models.CharField('用户名', max_length=50)
     realname = models.CharField('姓名', max_length=50)
     user_passwd = models.CharField('登陆密码', max_length=50)
@@ -96,23 +51,17 @@ class Users(models.Model):
     reg_date = models.DateTimeField('注册时间')
     last_login_date = models.DateTimeField('最后登录时间')
 
-    class Meta:
-        verbose_name = '用户名'
-        verbose_name_plural = verbose_name
-
-    def __unicode__(self):
-        return self.username
-
 
 class Roles(models.Model):
-    role_id = models.IntegerField('角色编号', primary_key=True, auto_created=True)
     role_name = models.CharField('角色名', max_length=50)
     role_realname = models.CharField('角色实名', max_length=50)
     comments = models.CharField('备注', max_length=50)
 
-    class Meta:
-        verbose_name = '角色名'
-        verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return self.role_name
+class Idc(models.Model):
+    idc_name = models.CharField('idc名称', max_length=20)
+    idc_phone = models.CharField('idc联系人电话', max_length=11)
+    idc_username = models.CharField('idc联系人', max_length=50)
+    idc_addr = models.CharField('idc地址', max_length=50, null=True)
+    comments = models.CharField('备注', null=True, max_length=100)
+    update_date = models.DateTimeField('更新时间', null=True)
